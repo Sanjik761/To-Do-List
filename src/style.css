@@ -1,16 +1,17 @@
-input {
-  border: 1px solid green;
-  display: block;
-}
-
-input:focus {
-  outline: none;
-}
-
 body {
-  width: 70%;
+  width: 90%;
   padding-top: 20px;
   margin: auto;
+  background-color: rgb(216, 215, 215);
+}
+
+.btn {
+  color: white;
+  background-color: rgb(252, 18, 18);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: large;
 }
 
 table {
@@ -21,11 +22,27 @@ table {
 
 td,
 th {
-  border: 1px solid #ddd;
+  border: 1px solid rgb(99, 98, 98);
   text-align: left;
   padding: 8px;
 }
 
 tr:nth-child(even) {
-  background-color: #ddd;
+  background-color: rgb(253, 251, 251);
+}
+
+table {
+  table-layout: fixed;
+  border-collapse: separate;
+  counter-reset: rowNumber;
+  margin: 0 auto;
+}
+
+table tr::before {
+  display: table-cell;
+  counter-increment: rowNumber;
+  content: counter(rowNumber) ".";
+  padding: 0.5em 0.3em 0 0;
+  text-align: center;
+  border: 1px solid rgb(14, 13, 13);
 }

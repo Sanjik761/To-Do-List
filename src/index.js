@@ -1,57 +1,20 @@
-// const { stat } = require("fs");
+const task = [];
 
-// const { runInContext } = require("vm");
-
-const myLibrary = [];
-
-// Book constructor
-// function Book(title, author, pages, status) {
-//   this.title = title;
-//   this.author = author;
-//   this.pages = pages;
-//   this.status = status;
+// -----------------------------------------------------
+// Tasks constructor                                    |   
+class Tasks {          
+  constructor(today, inbox, label, priority){
+  this.today = today;                                  
+  this.inbox = inbox;
+  this.label = label;
+  this.priority = priority;
+}
+// toggleRead() {
+//   this.priority = !this.priority;
 // }
-
-// Factory function start
-// function Book(title, author, pages, status) {
-//   const newBookObject = Object.create(Book.proto);
-//   newBookObject.title = title;
-//   newBookObject.author = author;
-//   newBookObject.pages = pages;
-//   newBookObject.status = status;
-//   return newBookObject;
-// }
-// Factory function end
-
-// Class
-class Book {
-  constructor(title, author, pages, status) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
-  }
-
-  toggleRead() {
-    this.status = !this.status;
-  }
 }
 
-// constructor type
-// Book.prototype.toggleRead = toggle
-// function toggle() {
-//   this.status = !this.status;
-// }
-
-// constructor
-
-// factory function start
-// Book.proto = {
-//   toggleRead: toggle,
-// };
-
-// factory function end
-
+//-------------------------------------------------------
 function addTableHeading() {
   const body = document.querySelector('body');
   if (document.querySelector('table')) {
@@ -60,41 +23,40 @@ function addTableHeading() {
 
   const table = document.createElement('table');
   const rowHead = document.createElement('tr');
-  const colHeadTitle = document.createElement('th');
-  colHeadTitle.textContent = 'Title';
-  rowHead.appendChild(colHeadTitle);
-  const colHeadAuthor = document.createElement('th');
-  colHeadAuthor.textContent = 'Author';
-  rowHead.appendChild(colHeadAuthor);
-  const colHeadPages = document.createElement('th');
-  colHeadPages.textContent = 'Pages';
-  rowHead.appendChild(colHeadPages);
-  const colHeadStatus = document.createElement('th');
-  colHeadStatus.textContent = 'Read Status';
-  rowHead.appendChild(colHeadStatus);
-
+  const colHeadToday = document.createElement('th');
+  colHeadToday.textContent = 'Today';
+  rowHead.appendChild(colHeadToday);
+  const colHeadInbox = document.createElement('th');
+  colHeadInbox.textContent = 'Inbox';
+  rowHead.appendChild(colHeadInbox);
+  const colHeadLabel = document.createElement('th');
+  colHeadLabel.textContent = 'Label';
+  rowHead.appendChild(colHeadLabel);
+  const colHeadPriority = document.createElement('th');
+  colHeadPriority.textContent = 'Priority';
+  rowHead.appendChild(colHeadPriority);
   body.appendChild(table);
 }
 
-function addBookRecord(book, index) {
+function addTask(list, index) {
   const table = document.querySelector('table');
   const row = document.createElement('tr');
 
-  const title = document.createElement('td');
-  title.textContent = book.title;
-  row.appendChild(title);
+  const today = document.createElement('td');
+  today.textContent = list.today;
+  row.appendChild(today);
 
-  const author = document.createElement('td');
-  author.textContent = book.author;
-  row.appendChild(author);
+  const inbox = document.createElement('td');
+  inbox.textContent = list.inbox;
+  row.appendChild(inbox);
 
-  const pages = document.createElement('td');
-  pages.textContent = book.pages;
-  row.appendChild(pages);
+  const label = document.createElement('td');
+  label.textContent = list.label;
+  row.appendChild(label);
 
-  const status = document.createElement('td');
-  status.textContent = book.status;
-  row.appendChild(status);
+  const priority = document.createElement('td');
+  priority.textContent = list.priority;
+  row.appendChild(priority);
 
   const deleteCol = document.createElement('td');
   const deleteBtn = document.createElement('button');
@@ -102,101 +64,108 @@ function addBookRecord(book, index) {
   deleteBtn.textContent = 'Delete';
   deleteCol.appendChild(deleteBtn);
   deleteBtn.onclick = (event) => {
-    myLibrary.splice(event.target.dataset.index, 1);
+    task.splice(event.target.dataset.index, 1);
     table.removeChild(row);
   };
   row.appendChild(deleteCol);
 
-  const toggleReadCol = document.createElement('td');
-  const toggleReadBtn = document.createElement('button');
-  toggleReadBtn.setAttribute('class', 'set');
-  function check(book) {
-    if (book.status) {
-      toggleReadBtn.textContent = 'UnRead';
-    } else {
-      toggleReadBtn.textContent = 'Read';
-    }
-  }
-  check(book);
-  toggleReadBtn.onclick = () => {
-    book.toggleRead();
-    check(book);
+  // const toggleReadCol = document.createElement('td');
+  const toggleAddBtn = document.createElement('button');
+  toggleAddBtn.setAttribute('class', 'set');
+  // function check(list) {
+  //   if (list.priority) {
+  //     // toggleAddBtn.textContent = 'UnRead';
+  //   } else {
+  //     // toggleAddBtn.textContent = 'Read';
+  //   }
+  // }
+  // check(list);
+  toggleAddBtn.onclick = () => {
+    // list.toggleRead();
+    // check(list);
     addTableHeading();
-    for (let i = 0; i < myLibrary.length; i += 1) {
-      addBookRecord(myLibrary[i], i);
+    for (let i = 0; i < task.length; i += 1) {
+      addTask(task[i], i);
     }
   };
   table.appendChild(row);
-  row.appendChild(toggleReadCol);
-  toggleReadCol.appendChild(toggleReadBtn);
+  // row.appendChild(toggleReadCol);
+  // toggleReadCol.appendChild(toggleAddBtn);
 }
 
 
-function displayBooks() {
+function displayTasks() {
   addTableHeading();
-  for (let i = 0; i < myLibrary.length; i += 1) {
-    addBookRecord(myLibrary[i], i);
+  for (let i = 0; i < task.length; i += 1) {
+    addTask(task[i], i);
   }
 }
 
 
-function addBookToLibrary(title, author, pages, status) {
-  // myLibrary.push(new Book(title, author, pages, status)); constructor
-  const createBook = new Book(title, author, pages, status); // factory function
-  myLibrary.push(createBook);
-  displayBooks();
+function addTasksToDoList(today, inbox, label, priority) {
+  task.push(new Tasks(today, inbox, label, priority)); //constructor
+  displayTasks();
 }
 
-displayBooks();
+displayTasks();
 
 const newBook = document.querySelector('.btn');
 
 newBook.onclick = () => {
   const body = document.querySelector('body');
   const form = document.createElement('form');
-  const labelForTitle = document.createElement('label');
-  labelForTitle.setAttribute('for', 'title');
-  labelForTitle.textContent = 'Title';
-  const titleForBook = document.createElement('input');
-  titleForBook.setAttribute('type', 'text');
-  titleForBook.setAttribute('id', 'title');
-  labelForTitle.appendChild(titleForBook);
-  form.appendChild(labelForTitle);
+  const labelForToday = document.createElement('label');
+  labelForToday.setAttribute('for', 'today');
+  labelForToday.textContent = 'Today';
+  labelForToday.style.cssText = 'font-size: 22px; margin-right: 15px;'
+  const todayForTask = document.createElement('input');
+  todayForTask.setAttribute('type', 'text');
+  todayForTask.setAttribute('id', 'today');
+  todayForTask.style.cssText = 'margin: 25px 5px 5px 5px; height: 20px; border: 1px solid rgb(252, 18, 18)'
+  labelForToday.appendChild(todayForTask);
+  form.appendChild(labelForToday);
 
-  const labelForAuthor = document.createElement('label');
-  labelForAuthor.setAttribute('for', 'author');
-  labelForAuthor.textContent = 'Author';
-  const authorForBook = document.createElement('input');
-  authorForBook.setAttribute('type', 'text');
-  authorForBook.setAttribute('id', 'author');
-  labelForAuthor.appendChild(authorForBook);
-  form.appendChild(labelForAuthor);
-
-  const labelForPages = document.createElement('label');
-  labelForPages.setAttribute('for', 'pages');
-  labelForPages.textContent = 'Number of pages';
-  const pagesForBook = document.createElement('input');
-  pagesForBook.setAttribute('type', 'text');
-  pagesForBook.setAttribute('id', 'pages');
-  labelForPages.appendChild(pagesForBook);
-  form.appendChild(labelForPages);
-
-  const labelForReadStatus = document.createElement('label');
-  labelForReadStatus.setAttribute('for', 'status');
-  labelForReadStatus.textContent = 'Click if you have finished the book';
-  const statusForBook = document.createElement('input');
-  statusForBook.setAttribute('type', 'checkbox');
-  statusForBook.setAttribute('id', 'status');
-  labelForReadStatus.appendChild(statusForBook);
-  form.appendChild(labelForReadStatus);
+  const labelForInbox = document.createElement('label');
+  labelForInbox.setAttribute('for', 'inbox');
+  labelForInbox.textContent = 'Inbox';
+  labelForInbox.style.cssText = 'font-size: 22px; margin-right: 15px;'
+  const inboxForTask = document.createElement('input');
+  inboxForTask.setAttribute('type', 'text');
+  inboxForTask.setAttribute('id', 'inbox');
+  inboxForTask.style.cssText = 'margin: 25px 5px 5px 5px; height: 20px; border: 1px solid rgb(252, 18, 18)'
+  labelForInbox.appendChild(inboxForTask);
+  form.appendChild(labelForInbox);
+  
+  const labelForAddLabel = document.createElement('label');
+  labelForAddLabel.setAttribute('for', 'label');
+  labelForAddLabel.textContent = 'Add Label';
+  labelForAddLabel.style.cssText = 'font-size: 22px; margin-right: 15px;'
+  const labelForTask = document.createElement('input');
+  labelForTask.setAttribute('type', 'text');
+  labelForTask.setAttribute('id', 'label');
+  labelForTask.style.cssText = 'margin: 25px 5px 5px 5px; height: 20px; border: 1px solid rgb(252, 18, 18)'
+  labelForAddLabel.appendChild(labelForTask);
+  form.appendChild(labelForAddLabel);
+  
+  const labelForPriority = document.createElement('label');
+  labelForPriority.setAttribute('for', 'priority');
+  labelForPriority.textContent = 'Set Priority';
+  labelForPriority.style.cssText = 'font-size: 22px; margin-right: 15px;'
+  const priorityForTask = document.createElement('input');
+  priorityForTask.setAttribute('type', 'text');
+  priorityForTask.setAttribute('id', 'priority');
+  priorityForTask.style.cssText = 'margin: 25px 5px 5px 5px; height: 20px; border: 1px solid rgb(252, 18, 18)'
+  labelForPriority.appendChild(priorityForTask);
+  form.appendChild(labelForPriority);
 
   const submit = document.createElement('input');
   submit.setAttribute('type', 'button');
-  submit.setAttribute('value', 'Add to the Library');
+  submit.setAttribute('value', 'Add Task');
+  submit.style.cssText = 'padding: 5px 12px; color: white; background-color: rgb(252, 18, 18); border: none; border-radius: 5px; font-size: large;'
   form.appendChild(submit);
   submit.onclick = () => {
-    addBookToLibrary(titleForBook.value, authorForBook.value,
-      pagesForBook.value, statusForBook.checked);
+    addTasksToDoList(todayForTask.value, inboxForTask.value,
+      labelForTask.value, priorityForTask.checked);
     body.removeChild(form);
   };
   body.appendChild(form);
