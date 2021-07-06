@@ -3,6 +3,7 @@ body {
   padding-top: 20px;
   margin: auto;
   background-color: rgb(216, 215, 215);
+  position: relative;
 }
 
 .btn {
@@ -12,6 +13,11 @@ body {
   padding: 10px 20px;
   border-radius: 5px;
   font-size: large;
+}
+
+#level,
+#days {
+  display: none;
 }
 
 table {
@@ -45,4 +51,20 @@ table tr::before {
   padding: 0.5em 0.3em 0 0;
   text-align: center;
   border: 1px solid rgb(14, 13, 13);
+}
+
+h1 {
+  position: absolute;
+  text-align: center;
+  color: rgb(252, 18, 18);
+  font-size: 200px;
+  text-shadow: 0 0 3px #FF0000;
+  z-index: -1;
+  transform: rotate(-20deg) translate(100px,100px);
+}
+
+p {
+  position: absolute;
+  color: #FF0000;
+  bottom: -550px;
 }
