@@ -1,7 +1,5 @@
 const task = [];
 
-// -----------------------------------------------------
-// Tasks constructor                                    |   
 class Tasks {          
   constructor(today, inbox, label, priority){
   this.today = today;                                  
@@ -9,9 +7,6 @@ class Tasks {
   this.label = label;
   this.priority = priority;
 }
-// toggleRead() {
-//   this.priority = !this.priority;
-// }
 }
 
 //-------------------------------------------------------
@@ -71,28 +66,9 @@ function addTask(list, index) {
   };
   row.appendChild(deleteCol);
 
-  // const toggleReadCol = document.createElement('td');
   const toggleAddBtn = document.createElement('button');
   toggleAddBtn.setAttribute('class', 'set');
-  // function check(list) {
-  //   if (list.priority) {
-  //     // toggleAddBtn.textContent = 'UnRead';
-  //   } else {
-  //     // toggleAddBtn.textContent = 'Read';
-  //   }
-  // }
-  // check(list);
-  // toggleAddBtn.onclick = () => {
-    // list.toggleRead();
-    // check(list);
-    // addTableHeading();
-    // for (let i = 0; i < task.length; i += 1) {
-    //   addTask(task[i], i);
-    // }
-  // };
   table.appendChild(row);
-  // row.appendChild(toggleReadCol);
-  // toggleReadCol.appendChild(toggleAddBtn);
 }
 
 
@@ -110,10 +86,6 @@ function addTasksToDoList(today, inbox, label, priority) {
 }
 
 displayTasks();
-
-// const newBook = document.querySelector('.btn');
-
-// newBook.onclick = () => {
   const body = document.querySelector('body');
   const form = document.createElement('form');
   const labelForToday = document.createElement('label');
@@ -121,14 +93,8 @@ displayTasks();
   labelForToday.textContent = 'Weekdays';
   labelForToday.style.cssText = 'font-size: 22px; margin-right: 15px;'
   const todayForTask = document.querySelector('select');
-  // const todayForTasks = document.querySelectorAll('option');
-  // todayForTask.setAttribute('type', 'text');
-  // todayForTask.setAttribute('id', 'today');
-  // todayForTasks.setAttribute('type', 'text');
-  // todayForTasks.setAttribute('id', 'today');
   todayForTask.style.cssText = 'display: inline; margin: 25px 5px 5px 5px; height: 20px; border: 1px solid rgb(252, 18, 18)'
   labelForToday.appendChild(todayForTask);
-  // form.appendChild(todayForTasks);
   form.appendChild(labelForToday);
 
   const labelForInbox = document.createElement('label');
@@ -147,8 +113,6 @@ displayTasks();
   labelForAddLabel.textContent = 'Importance Level';
   labelForAddLabel.style.cssText = 'font-size: 22px; margin-right: 15px;'
   const labelForTask = document.querySelector('select');
-  // labelForTask.setAttribute('type', 'text');
-  // labelForTask.setAttribute('id', 'label');
   labelForTask.style.cssText = 'display: inline; margin: 25px 5px 5px 5px; height: 20px; border: 1px solid rgb(252, 18, 18)'
   labelForAddLabel.appendChild(labelForTask);
   form.appendChild(labelForAddLabel);
@@ -172,7 +136,5 @@ displayTasks();
   submit.onclick = () => {
     addTasksToDoList(todayForTask.value, inboxForTask.value,
       labelForTask.value, commitForTask.value);
-    // body.removeChild(form);
   };
   body.appendChild(form);
-// };
